@@ -1,0 +1,104 @@
+.card {
+    @include card-base;
+
+    &--interactive {
+        @include card-hover;
+        cursor: pointer;
+    }
+
+    &--destination {
+        position: relative;
+        height: 320px;
+        overflow: hidden;
+
+        &:hover {
+            .card__image {
+                transform: scale(1.1);
+            }
+
+            .card__overlay {
+                opacity: 0.4;
+            }
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform $transition-slow;
+    }
+
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        opacity: 0.6;
+        transition: opacity $transition-normal;
+    }
+
+    &__content {
+        position: absolute;
+        bottom: $spacing-xl;
+        left: $spacing-xl;
+        right: $spacing-xl;
+        color: $white;
+    }
+
+    &__title {
+        @include text-heading-3;
+        margin-bottom: $spacing-sm;
+    }
+
+    &__description {
+        opacity: 0.9;
+    }
+}
+
+.benefit-card {
+    @include card-base;
+    @include card-hover;
+    padding: $spacing-2xl;
+    text-align: center;
+
+    &__icon {
+        font-size: 3rem;
+        margin-bottom: $spacing-lg;
+        display: block;
+    }
+
+    &__title {
+        @include text-heading-3;
+        color: $text-primary;
+        margin-bottom: $spacing-md;
+    }
+
+    &__description {
+        color: $text-secondary;
+        opacity: 0.8;
+    }
+}
+
+.benefit-card {
+  @include card-base;
+  @include card-hover;
+  padding: $spacing-2xl;
+  text-align: center;
+  
+  &__icon {
+    font-size: 3rem;
+    margin-bottom: $spacing-lg;
+    display: block;
+  }
+  
+  &__title {
+    @include text-heading-3;
+    color: $text-primary;
+    margin-bottom: $spacing-md;
+  }
+  
+  &__description {
+    color: $text-secondary;
+    line-height: 1.6;
+  }
+}

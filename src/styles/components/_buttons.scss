@@ -1,0 +1,39 @@
+.btn {
+  @include button-base;
+  padding: $spacing-md $spacing-xl;
+  border-radius: $border-radius-lg;
+  font-size: 1rem;
+  
+  &--primary {
+    @include button-primary;
+  }
+  
+  &--secondary {
+    @include button-secondary;
+  }
+  
+  &--large {
+    padding: $spacing-lg $spacing-2xl;
+    font-size: 1.125rem;
+  }
+  
+  &--small {
+    padding: $spacing-sm $spacing-lg;
+    font-size: 0.875rem;
+  }
+  
+  &--rounded {
+    border-radius: $border-radius-full;
+  }
+  
+  &--gradient {
+    @include gradient-primary;
+    color: $white;
+    
+    &:hover:not(:disabled) {
+      @include gradient-sunset;
+      transform: translateY(-2px);
+      box-shadow: $shadow-xl;
+    }
+  }
+}
