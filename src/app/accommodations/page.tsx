@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getAccommodations, createAccommodation, Accommodation } from "@/lib/accommodations";
+import { getAccommodations, createAccommodation } from "@/lib/accommodations";
+import { Accommodation } from "@/interfaces/IAccomodations";
 
 export default function AccomodationsPage() {
   const [accommodations, setAccommodations] = useState<Accommodation[]>([]);

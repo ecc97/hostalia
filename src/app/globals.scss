@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@import '../styles/variables';
+@import '../styles/mixins';
+@import '../styles/components/hero';
+@import '../styles/components/buttons';
+@import '../styles/components/cards';
+@import '../styles/animations';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: $text-primary;
+  background-color: $background-primary;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

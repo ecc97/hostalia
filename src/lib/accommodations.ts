@@ -1,15 +1,4 @@
-export interface Accommodation {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  location: string;
-  images?: string[];
-  capacity?: number;
-  rating?: number;
-  createdAt?: string;
-  updatedAt?: string;
-}
+import { Accommodation } from "@/interfaces/IAccomodations";
 
 export async function getAccommodations(): Promise<Accommodation[]> {
   try {
