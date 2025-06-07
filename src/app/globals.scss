@@ -2,6 +2,7 @@
 @import '../styles/variables';
 @import '../styles/mixins';
 @import '../styles/components/hero';
+@import '../styles/components/inputs';
 @import '../styles/components/buttons';
 @import '../styles/components/cards';
 @import '../styles/animations';
@@ -25,6 +26,5 @@ body {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
 }
