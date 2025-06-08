@@ -10,13 +10,26 @@ import Modal from './Modal';
 import FormLogin from './FormLogin';
 import FormRegister from './FormRegister';
 import { useModalStore } from '@/store/modalStore';
+import { useAccommodationsStore } from '@/store/accommodationsStore';
 
-interface HomeProps {
-    data: Accommodation[]
-}
 
-export default function HomeTemplate({ data }: HomeProps) {
+export default function HomeTemplate() {
+    const { accommodations, error, fetchAccommodations, loading } = useAccommodationsStore();
     const { showLoginModal, closeLoginModal, showRegisterModal, closeRegisterModal } = useModalStore();
+
+    React.useEffect(() => {
+        fetchAccommodations();
+    }, [fetchAccommodations]);
+    
+    const data = accommodations as Accommodation[];
+
+    if (loading) {
+        return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+    }
+
+    if (error) {
+        return <div className="flex items-center justify-center min-h-screen text-red-500">{error}</div>;
+    }
     return (
         <main className="min-h-screen">
             <HeroSection />

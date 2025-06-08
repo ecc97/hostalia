@@ -10,8 +10,9 @@ export default async function Home() {
     },
   })
   const data: Accommodation[] = await response.json();
+  console.log(data);
   
   return (
-    <HomeTemplate data={data} />
+    <HomeTemplate />
   );
 }
