@@ -1,17 +1,46 @@
 'use client'
 import React from 'react'
+import { useAuthStore } from '@/store/authStore';
 import { useModalStore } from '@/store/modalStore';
+import { IRegisterRequest } from '@/interfaces/IAuth';
 
 export default function FormRegister() {
+    const { register, error, loading } = useAuthStore();
     const { openLoginModal } = useModalStore();
+    const [formData, setFormData] = React.useState<IRegisterRequest>({
+        fullName: '',
+        email: '',
+        phone: '',
+        password: '',
+        confirmPassword: ''
+    });
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        // Validación simple de contraseñas
+        if (formData.password !== formData.confirmPassword) {
+            console.log("Las contraseñas no coinciden");
+            return;
+        }
+        try {
+            await register(formData);
+            console.log("Registro exitoso");
+            // Aquí podrías redirigir al usuario a otra página o mostrar un mensaje de éxito
+        } catch (err) {
+            console.error("Error al registrarse:", err);
+            // Aquí podrías mostrar un mensaje de error al usuario
+        }
+    }
   return (
-    <form className='flex flex-col align-center justify-center gap-4 mx-auto p-6 bg-white rounded-lg'>
+    <form className='flex flex-col align-center justify-center gap-4 mx-auto p-6 bg-white rounded-lg' onSubmit={handleSubmit}>
         <h2 className="text-2xl text-center font-bold mb-4">Crea una cuenta</h2>
         <div className="relative mb-4">
             <label htmlFor="name" className="label-login absolute left-2 top-2 transition-all duration-200 transform origin-top-left pointer-events-none">Nombre</label>
             <input 
                 type="text" 
                 id="name" 
+                value={formData.fullName}
+                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                 className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                 required
                 onFocus={(e) => {
@@ -35,6 +64,8 @@ export default function FormRegister() {
                 <input 
                     type="email" 
                     id="email" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     onFocus={(e) => {
@@ -59,6 +90,8 @@ export default function FormRegister() {
                 <input 
                     type="tel" 
                     id="phone" 
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     onFocus={(e) => {
@@ -83,6 +116,8 @@ export default function FormRegister() {
                 <input 
                     type="password" 
                     id="password" 
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     onFocus={(e) => {
@@ -108,6 +143,8 @@ export default function FormRegister() {
                 <input 
                     type="password" 
                     id="confirmPassword" 
+                    value={formData.confirmPassword}
+                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                     className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     onFocus={(e) => {
@@ -126,7 +163,10 @@ export default function FormRegister() {
                     }} 
                 />
         </div>
-        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[12px]">Registrarme</button>
+        {error && <p className="text-red-500 text-center">{error}</p>}
+        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[12px]" disabled={loading}>
+            {loading ? 'Registrando...' : 'Registrarse'}
+        </button>
         <p className="text-center mt-4">¿Ya tienes una cuenta? <button onClick={openLoginModal} className="text-blue-500">Inicia sesión</button></p>
     </form>
   )
