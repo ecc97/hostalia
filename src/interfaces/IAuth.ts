@@ -17,6 +17,8 @@ export interface ILoginResponse {
     userId: string;
     name: string;
     email: string;
+    phone?: string;
+    status: string;
 }
 
 export interface IRegisterResponse {

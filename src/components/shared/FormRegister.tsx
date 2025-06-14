@@ -3,6 +3,7 @@ import React from 'react'
 import { useAuthStore } from '@/store/authStore';
 import { useModalStore } from '@/store/modalStore';
 import { IRegisterRequest } from '@/interfaces/IAuth';
+import { useRouter } from 'next/navigation';
 
 export default function FormRegister() {
     const { register, error, loading } = useAuthStore();
@@ -14,21 +15,22 @@ export default function FormRegister() {
         password: '',
         confirmPassword: ''
     });
+    const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // Validación simple de contraseñas
         if (formData.password !== formData.confirmPassword) {
-            console.log("Las contraseñas no coinciden");
+            setErrorMessage("Las contraseñas no coinciden");
             return;
         }
         try {
             await register(formData);
             console.log("Registro exitoso");
-            // Aquí podrías redirigir al usuario a otra página o mostrar un mensaje de éxito
+            router.push('/dashboard'); 
         } catch (err) {
             console.error("Error al registrarse:", err);
-            // Aquí podrías mostrar un mensaje de error al usuario
         }
     }
   return (
@@ -163,7 +165,9 @@ export default function FormRegister() {
                     }} 
                 />
         </div>
-        {error && <p className="text-red-500 text-center">{error}</p>}
+        {(error || errorMessage) && (
+            <p className="text-red-500 text-center">{error || errorMessage}</p>
+        )}
         <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[12px]" disabled={loading}>
             {loading ? 'Registrando...' : 'Registrarse'}
         </button>

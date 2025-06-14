@@ -3,21 +3,24 @@ import React from "react"
 import { useAuthStore } from "@/store/authStore";
 import { useModalStore } from "@/store/modalStore"
 import { ILoginRequest } from "@/interfaces/IAuth";
+import { useRouter } from "next/navigation";
 
 export default function FormLogin() {
     const { login, error, loading } = useAuthStore();
-    const { openRegisterModal } = useModalStore();
+    const { openRegisterModal, closeLoginModal } = useModalStore();
     const [formData, setFormData] = React.useState<ILoginRequest>({ email: '', password: '' });
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             await login(formData);
-            console.log("Inicio de sesión exitoso");
-            // Aquí podrías redirigir al usuario a otra página o mostrar un mensaje de éxito
+            // console.log("Inicio de sesión exitoso");
+            // console.log("Usuario:", useAuthStore.getState().user);
+            closeLoginModal(); 
+            router.push('/dashboard');
         } catch (err) {
             console.error("Error al iniciar sesión:", err);
-            // Aquí podrías mostrar un mensaje de error al usuario
         }
     }
     return (
