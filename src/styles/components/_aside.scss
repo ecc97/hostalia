@@ -1,0 +1,77 @@
+.dashboard-aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 100%;
+    background-color: $background-dark;
+    color: $gray-50;
+    padding: 20px;
+    box-shadow: $shadow-lg;
+    z-index: 1000;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+
+    &.closed {
+        transform: translateX(-100%);
+    }
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    .aside-toggle {
+        position: absolute;
+        right: 1rem;
+        background: $background-dark;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        cursor: pointer;
+        border: none;
+        color: $gray-50;
+        transition: background 0.2s;
+
+        &:hover {
+            background: darken($background-dark, 10%);
+        }
+    }
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 1rem;
+
+    span {
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .logout-btn {
+        background-color: $primary-blue-light;
+        padding: .5rem 1rem;
+        cursor: pointer;
+        border-radius: 1rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: $primary-blue;
+        }
+    }
+}
+
+.items-link > li {
+    padding: 1rem 0;
+
+    &:hover {
+        border-bottom: 1px solid $gray-300;
+    }
+}

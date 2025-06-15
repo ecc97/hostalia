@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getAccommodations, createAccommodation } from "@/lib/accommodations";
+import { getAccommodations, createAccommodation } from "@/actions/accommodations";
 import { Accommodation } from "@/interfaces/IAccomodations";
 
 export default function AccomodationsPage() {
@@ -63,7 +63,7 @@ export default function AccomodationsPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-8 mt-16">
       <h1 className="text-3xl font-bold mb-6">Alojamientos</h1>
 
       <div className="mb-8">

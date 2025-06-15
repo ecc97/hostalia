@@ -6,12 +6,17 @@ import Link from 'next/link';
 import { useModalStore } from '@/store/modalStore';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
+import { LuArrowRightFromLine } from 'react-icons/lu';
+import { useAsideStore } from '@/store/asideStore';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { isAuthenticated, logout, user } = useAuthStore(); 
   const { openLoginModal, openRegisterModal } = useModalStore(); 
+  const { isOpen, openAside } = useAsideStore();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,6 +58,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 gap-8">
           {/* Logo */}
           <div className="flex items-center">
+            {!isOpen &&  (
+              <button className={`${!isAuthenticated || pathname !== '/dashboard' ? 'hidden' : 'rounded-full p-1 hover:bg-gray-400 duration-300 cursor-pointer' }`} onClick={openAside} title="Abrir menú">
+                <LuArrowRightFromLine size={22} />
+              </button>
+            )}
             <Link href="/" className={`text-2xl font-bold hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated ? 'text-black' : 'text-white'}`}>
               🏠 Hostalia
             </Link>
