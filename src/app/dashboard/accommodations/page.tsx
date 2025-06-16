@@ -1,63 +1,32 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getAccommodations, createAccommodation } from "@/actions/accommodations";
+import { useAccommodationsStore } from "@/store/accommodationsStore";
+import { useModalStore } from "@/store/modalStore";
+import Modal from "@/components/shared/Modal";
 import { Accommodation } from "@/interfaces/IAccomodations";
+import FormAccommodation from "@/components/shared/FormAccommodation";
 
 export default function AccomodationsPage() {
-  const [accommodations, setAccommodations] = useState<Accommodation[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [newAccommodation, setNewAccommodation] = useState({
-    name: "",
-    description: "",
-    price: 0,
-    location: "",
-  });
+  const {
+    accommodations,
+    loading,
+    error,
+    fetchAccommodations,
+    createAccommodation,
+  } = useAccommodationsStore();
+  const { showBookingModal, openBookingModal, closeBookingModal } = useModalStore();
+  
 
   useEffect(() => {
-    const fetchAccommodations = async () => {
-      try {
-        const data = await getAccommodations();
-        setAccommodations(data);
-        console.log("Alojamientos cargados:", data.map(acc => acc.id)); // Para depuración
-      } catch (err: any) {
-        setError(err.message || "Failed to fetch accommodations");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchAccommodations();
+    // eslint-disable-next-line
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setNewAccommodation((prev) => ({
-      ...prev,
-      [name]: name === "price" ? parseFloat(value) : value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const created = await createAccommodation(newAccommodation);
-      setAccommodations((prev) => {
-        const updatedAccommodations = [...prev, created];
-        console.log("Nuevo alojamiento creado y lista actualizada:", updatedAccommodations.map(acc => acc.id)); // Para depuración
-        return updatedAccommodations;
-      });
-      setNewAccommodation({ name: "", description: "", price: 0, location: "" });
-    } catch (err: any) {
-      setError(err.message || "Failed to create accommodation");
-    }
-  };
 
   if (loading) {
     return <div className="p-8">Cargando alojamientos...</div>;
   }
-
   if (error) {
     return <div className="p-8 text-red-500">Error: {error}</div>;
   }
@@ -65,67 +34,17 @@ export default function AccomodationsPage() {
   return (
     <div className="p-8 mt-16">
       <h1 className="text-3xl font-bold mb-6">Alojamientos</h1>
-
-      <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Crear Nuevo Alojamiento</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nombre</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={newAccommodation.name}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700">Descripción</label>
-            <textarea
-              id="description"
-              name="description"
-              value={newAccommodation.description}
-              onChange={handleInputChange}
-              rows={3}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            ></textarea>
-          </div>
-          <div>
-            <label htmlFor="price" className="block text-sm font-medium text-gray-700">Precio</label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              value={newAccommodation.price}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="location" className="block text-sm font-medium text-gray-700">Ubicación</label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              value={newAccommodation.location}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Crear Alojamiento
-          </button>
-        </form>
+      <div className="mb-8 flex justify-end">
+        <button
+          onClick={openBookingModal}
+          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Crear Nuevo Alojamiento
+        </button>
       </div>
-
+      <Modal isOpen={showBookingModal!} onClose={closeBookingModal}>
+        <FormAccommodation createAccommodation={createAccommodation} closeBookingModal={closeBookingModal}/>
+      </Modal>
       <div>
         <h2 className="text-2xl font-semibold mb-4">Lista de Alojamientos</h2>
         {accommodations.length === 0 ? (

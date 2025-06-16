@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getAccommodations } from "@/actions/accommodations";
+import { getAccommodations, createAccommodation } from "@/actions/accommodations";
 import { Accommodation } from "@/interfaces/IAccomodations";
 
 interface AccommodationsState {
@@ -7,9 +7,10 @@ interface AccommodationsState {
   loading: boolean;
   error?: string;
   fetchAccommodations: () => Promise<void>;
+  createAccommodation: (data: Omit<Accommodation, 'id'>) => Promise<void>;
 }
 
-export const useAccommodationsStore = create<AccommodationsState>((set) => ({
+export const useAccommodationsStore = create<AccommodationsState>((set, get) => ({
   accommodations: [],
   loading: false,
   error: undefined,
@@ -20,6 +21,15 @@ export const useAccommodationsStore = create<AccommodationsState>((set) => ({
       set({ accommodations, loading: false });
     } catch (error) {
       set({ error: "Error fetching accommodations", loading: false });
+    }
+  },
+  createAccommodation: async (data) => {
+    try {
+      set({ loading: true });
+      const created = await createAccommodation(data);
+      set({ accommodations: [...get().accommodations, created], loading: false });
+    } catch (error) {
+      set({ error: "Error creating accommodation", loading: false });
     }
   },
 }));
