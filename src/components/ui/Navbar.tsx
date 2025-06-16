@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { LuArrowRightFromLine } from 'react-icons/lu';
 import { useAsideStore } from '@/store/asideStore';
 import { usePathname } from 'next/navigation';
+import { ListPath } from '@/utils/ListPath';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,6 +18,7 @@ export default function Navbar() {
   const { isOpen, openAside } = useAsideStore();
   const router = useRouter();
   const pathname = usePathname();
+  const pathnameList = ListPath();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +61,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             {!isOpen &&  (
-              <button className={`${!isAuthenticated || pathname !== '/dashboard' ? 'hidden' : 'rounded-full p-1 hover:bg-gray-400 duration-300 cursor-pointer' }`} onClick={openAside} title="Abrir menú">
+              <button className={`${!isAuthenticated || !pathnameList.includes(pathname) ? 'hidden' : 'rounded-full p-1 hover:bg-gray-400 duration-300 cursor-pointer' }`} onClick={openAside} title="Abrir menú">
                 <LuArrowRightFromLine size={22} />
               </button>
             )}

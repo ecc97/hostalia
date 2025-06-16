@@ -11,7 +11,7 @@ interface AsideState {
 export const useAsideStore = create<AsideState>()(
   persist(
     (set, get) => ({
-      isOpen: true,
+      isOpen: false,
       openAside: () => set({ isOpen: true }),
       closeAside: () => set({ isOpen: false }),
       toggleAside: () => set({ isOpen: !get().isOpen }),

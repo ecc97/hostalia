@@ -6,7 +6,7 @@ export default function DashboardPage() {
   const { user } = useAuthStore();
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }} className='p-8 mt-16'>
       <h1>¡Bienvenido, {user?.fullName || user?.email}!</h1>
       <section style={{ display: 'flex', gap: '2rem' }}>
         <div style={{ background: '#f3f4f6', padding: '1.5rem', borderRadius: '1rem', minWidth: 200 }}>

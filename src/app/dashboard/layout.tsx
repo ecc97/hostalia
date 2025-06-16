@@ -9,7 +9,7 @@ export default function DashboardLayout({ children, }: Readonly<{ children: Reac
         <div style={{ display: 'flex', minHeight: '100vh' }}>
           <Navbar />
           <DashboardAside />
-          <main style={{ flex: 1, padding: '2rem', marginTop: '4rem', backgroundColor: '#f3f4f6' }}>
+          <main style={{ flex: 1, backgroundColor: '#f3f4f6' }}>
             {children}
           </main>
         </div>
