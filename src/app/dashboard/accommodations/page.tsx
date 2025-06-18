@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAccommodationsStore } from "@/store/accommodationsStore";
 import { useModalStore } from "@/store/modalStore";
 import Modal from "@/components/shared/Modal";
-import { Accommodation } from "@/interfaces/IAccomodations";
 import FormAccommodation from "@/components/shared/FormAccommodation";
+import Image from "next/image";
 
 export default function AccomodationsPage() {
   const {
@@ -42,7 +42,7 @@ export default function AccomodationsPage() {
           Crear Nuevo Alojamiento
         </button>
       </div>
-      <Modal isOpen={showBookingModal!} onClose={closeBookingModal}>
+      <Modal isOpen={showBookingModal!} onClose={closeBookingModal} isLg={true}>
         <FormAccommodation createAccommodation={createAccommodation} closeBookingModal={closeBookingModal}/>
       </Modal>
       <div>
@@ -68,11 +68,13 @@ export default function AccomodationsPage() {
                     <h4 className="text-sm font-medium">Imágenes:</h4>
                     <div className="flex space-x-2 mt-1">
                       {accommodation.images.map((image, index) => (
-                        <img
+                        <Image
                           key={index}
-                          src={image}
+                          src={`${image}`}
                           alt={`Imagen ${index + 1} de ${accommodation.name}`}
                           className="w-24 h-24 object-cover rounded-md"
+                          width={100}
+                          height={100}                  
                         />
                       ))}
                     </div>

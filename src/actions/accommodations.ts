@@ -1,4 +1,7 @@
-import { Accommodation } from "@/interfaces/IAccomodations";
+import { Accommodation, AccommodationInput } from "@/interfaces/IAccomodations";
+import { storage } from "@/lib/appwrite";
+import { ID } from "appwrite";
+
 
 export async function getAccommodations(): Promise<Accommodation[]> {
   try {
@@ -22,14 +25,36 @@ export async function getAccommodations(): Promise<Accommodation[]> {
   }
 }
 
-export async function createAccommodation(accommodationData: Omit<Accommodation, 'id'>): Promise<Accommodation> {
+export async function createAccommodation(accommodationData: AccommodationInput): Promise<Accommodation> {
   try {
+    let images: string[] = [];
+
+    if (accommodationData.imageFiles && accommodationData.imageFiles.length > 0) {
+      const uploadFiles = accommodationData.imageFiles.map(async(imageFile) => {
+        const file = await storage.createFile(
+          process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID!,
+          ID.unique(),
+          imageFile
+        );
+        
+        return storage.getFileView(
+          process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID!,
+          file.$id
+        );
+        
+      }) 
+      images = await Promise.all(uploadFiles);
+    }
+
+    const { imageFiles, ...doc } = accommodationData;
+    const dataToSend = { ...doc, images };
+
     const response = await fetch('/api/accommodations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(accommodationData),
+      body: JSON.stringify(dataToSend), 
     });
 
     if (!response.ok) {
@@ -44,3 +69,4 @@ export async function createAccommodation(accommodationData: Omit<Accommodation,
     throw error;
   }
 }
+

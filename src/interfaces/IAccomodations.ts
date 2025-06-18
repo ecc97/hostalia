@@ -10,3 +10,7 @@ export interface Accommodation {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export type AccommodationInput = Omit<Accommodation, 'id' | 'images'> & {
+  imageFiles?: File[];           
+};

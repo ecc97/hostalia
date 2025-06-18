@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import { getAccommodations, createAccommodation } from "@/actions/accommodations";
-import { Accommodation } from "@/interfaces/IAccomodations";
+import { Accommodation, AccommodationInput } from "@/interfaces/IAccomodations";
 
 interface AccommodationsState {
   accommodations: Accommodation[];
   loading: boolean;
   error?: string;
   fetchAccommodations: () => Promise<void>;
-  createAccommodation: (data: Omit<Accommodation, 'id'>) => Promise<void>;
+  createAccommodation: (data: Omit<AccommodationInput, 'id'>) => Promise<void>;
 }
 
 export const useAccommodationsStore = create<AccommodationsState>((set, get) => ({
