@@ -25,6 +25,28 @@ export async function getAccommodations(): Promise<Accommodation[]> {
   }
 }
 
+export async function getAccommodation(id: string): Promise<Accommodation> {
+  try {
+    const response = await fetch(`/api/accommodations/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to fetch accommodation');
+    }
+
+    const data: Accommodation = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching accommodation:", error);
+    throw error;
+  }
+}
+
 export async function createAccommodation(accommodationData: AccommodationInput): Promise<Accommodation> {
   try {
     let images: string[] = [];

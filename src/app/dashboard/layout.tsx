@@ -1,15 +1,16 @@
 import ProtectedRoute from "@/app/dashboard/guard/ProtectedRoute";
 import Navbar from "@/components/ui/Navbar";
 import DashboardAside from '@/components/ui/DashboardAside';
+import Footer from "@/components/shared/Footer";
 
 export default function DashboardLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <>
       <ProtectedRoute>
-        <div style={{ display: 'flex', minHeight: '100vh' }}>
+        <div className="flex flex-col dashboard-layout">
           <Navbar />
           <DashboardAside />
-          <main style={{ flex: 1, backgroundColor: '#f3f4f6' }}>
+          <main>
             {children}
           </main>
         </div>
