@@ -1,12 +1,14 @@
 "use client";
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Accommodation } from '@/interfaces/IAccomodations';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useAccommodationsStore } from '@/store/accommodationsStore';
+import { useModalStore } from '@/store/modalStore';
 import { useParams } from 'next/navigation';
-
+import Modal from './Modal';
+import ImageCarousel from './ImageCarousel';
 
 export default function AccommodationTemplate() {
     const params = useParams();
@@ -14,6 +16,10 @@ export default function AccommodationTemplate() {
 
     const { currentAccommodation, loading, error, fetchAccommodation} = useAccommodationsStore();
     const data = currentAccommodation as Accommodation;
+    
+    // Estado para controlar la apertura/cierre del modal
+    // const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+    const { showImagesModal, openImagesModal, closeImagesModal } = useModalStore();
 
     useEffect(() => {
         if (accommodationId) {
@@ -21,6 +27,13 @@ export default function AccommodationTemplate() {
         }
 
     }, [accommodationId, fetchAccommodation]);
+
+    // Función para abrir el modal de imágenes
+    // const openImageModal = () => {
+    //     if (data?.images && data.images.length > 0) {
+    //         openImagesModal();
+    //     }
+    // };
 
     if (loading) {
         return (
@@ -61,6 +74,7 @@ export default function AccommodationTemplate() {
             </div>
         );
     }
+    
     return (
         <div className="flex flex-col justify-center h-screen p-8 md:px-0 md:py-8 mt-16 max-w-4xl mx-auto">
             {/* Header con botón de regreso */}
@@ -80,8 +94,8 @@ export default function AccommodationTemplate() {
                 <div>
                     {data.images && data.images.length > 0 ? (
                         <div className="space-y-4">
-                            {/* Imagen principal */}
-                            <div className="relative">
+                            {/* Imagen principal - ahora con evento de clic */}
+                            <div className="relative cursor-pointer" onClick={() => openImagesModal()}>
                                 <Image
                                     src={data.images[0]}
                                     alt={`Imagen principal de ${data.name}`}
@@ -89,20 +103,35 @@ export default function AccommodationTemplate() {
                                     height={400}
                                     className="w-full h-64 sm:h-80 object-cover rounded-lg shadow-lg"
                                 />
+                                <div className="absolute inset-0 bg-black/50 bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity rounded-lg">
+                                    <span className="text-white font-semibold text-sm py-2 px-4 rounded-md">
+                                        Ver todas las imágenes
+                                    </span>
+                                </div>
                             </div>
 
-                            {/* Imágenes adicionales */}
+                            {/* Imágenes adicionales - ahora con evento de clic */}
                             {data.images.length > 1 && (
                                 <div className="grid grid-cols-2 gap-2">
                                     {data.images.slice(1).map((image, index) => (
-                                        <Image
-                                            key={index + 1}
-                                            src={image}
-                                            alt={`Imagen ${index + 2} de ${data.name}`}
-                                            width={300}
-                                            height={200}
-                                            className="w-full h-32 object-cover rounded-lg"
-                                        />
+                                        <div 
+                                            key={index + 1} 
+                                            className="relative cursor-pointer" 
+                                            onClick={openImagesModal}
+                                        >
+                                            <Image
+                                                src={image}
+                                                alt={`Imagen ${index + 2} de ${data.name}`}
+                                                width={300}
+                                                height={200}
+                                                className="w-full h-32 object-cover rounded-lg"
+                                            />
+                                            <div className="absolute inset-0 bg-black/50 bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity rounded-lg">
+                                                <span className="text-white font-semibold text-xs  py-1 px-2 rounded-md">
+                                                    Ver todas
+                                                </span>
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
                             )}
@@ -171,6 +200,21 @@ export default function AccommodationTemplate() {
                     </div>
                 </div>
             </div>
+
+            {/* Modal para el carrusel de imágenes */}
+            <Modal 
+                isOpen={showImagesModal!} 
+                onClose={closeImagesModal}
+                isLg={true}
+            >
+                <div className="p-2">
+                    <h3 className="text-xl font-bold mb-4">Galería de imágenes</h3>
+                    <ImageCarousel 
+                        images={data.images || []} 
+                        alt={data.name}
+                    />
+                </div>
+            </Modal>
         </div>
     )
 }

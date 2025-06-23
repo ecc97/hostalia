@@ -10,6 +10,9 @@ interface ModalState {
   showBookingModal?: boolean;
   openBookingModal: () => void;
   closeBookingModal: () => void;
+  showImagesModal?: boolean;
+  openImagesModal: () => void;
+  closeImagesModal: () => void;
 }
 
 export const useModalStore = create<ModalState>((set) => ({
@@ -22,4 +25,7 @@ export const useModalStore = create<ModalState>((set) => ({
   showBookingModal: false,
   openBookingModal: () => set({ showBookingModal: true }),
   closeBookingModal: () => set({ showBookingModal: false }),
+  showImagesModal: false,
+  openImagesModal: () => set({ showImagesModal: true }),
+  closeImagesModal: () => set({ showImagesModal: false }),
 }));
