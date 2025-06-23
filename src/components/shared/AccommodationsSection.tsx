@@ -1,5 +1,6 @@
 'use client'
 import { Accommodation } from '@/interfaces/IAccomodations'
+import { getRandomAccommodations } from '@/utils/RandomAccommodations'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
@@ -11,6 +12,7 @@ export default function AccommodationsSection({ accommodations }: Accommodations
   if (!accommodations || accommodations.length === 0) {
     return null;
   }
+  const randomAccommodations = getRandomAccommodations(accommodations)
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,7 +30,7 @@ export default function AccommodationsSection({ accommodations }: Accommodations
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {accommodations.map((item, index) => (
+          {randomAccommodations.map((item, index) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
