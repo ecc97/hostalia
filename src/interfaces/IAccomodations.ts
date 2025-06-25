@@ -14,3 +14,12 @@ export interface Accommodation {
 export type AccommodationInput = Omit<Accommodation, 'id' | 'images'> & {
   imageFiles?: File[];           
 };
+
+export interface AccommodationResponse {
+  accommodations: Accommodation[];
+  total?: number;
+  page: number;
+  limit: number;
+  totalPages?: number;
+  hasMore?: boolean;
+}

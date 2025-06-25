@@ -1,7 +1,9 @@
-import { Accommodation, AccommodationInput } from "@/interfaces/IAccomodations";
-import { storage } from "@/lib/appwrite";
-import { ID } from "appwrite";
+import { Accommodation, AccommodationInput, AccommodationResponse } from "@/interfaces/IAccomodations";
+import { databases, storage } from "@/lib/appwrite";
+import { ID, Query } from "appwrite";
 
+const DATABASE_ID = '683a05ed00135a25f39e';
+const ACCOMMODATIONS_COLLECTION_ID = '683a0e8500034105f2b2';
 
 export async function getAccommodations(): Promise<Accommodation[]> {
   try {
@@ -19,6 +21,41 @@ export async function getAccommodations(): Promise<Accommodation[]> {
 
     const data: Accommodation[] = await response.json();
     return data;
+  } catch (error) {
+    console.error("Error fetching accommodations:", error);
+    throw error;
+  }
+}
+
+export async function getAccommodationsByPage(page: number, limit: number): Promise<AccommodationResponse> {
+  try {
+    const response = await databases.listDocuments(
+      DATABASE_ID,
+      ACCOMMODATIONS_COLLECTION_ID,
+      [Query.limit(limit), Query.offset((page - 1) * limit)]
+    );
+
+    const accommodations = response.documents.map((accommodation) => ({
+      id: accommodation.$id,
+      name: accommodation.name,
+      description: accommodation.description,
+      price: accommodation.price,
+      location: accommodation.location,
+      images: accommodation.images || [],
+      capacity: accommodation.capacity || 1,
+      rating: accommodation.rating || 0,
+      createdAt: accommodation.$createdAt, 
+      updatedAt: accommodation.$updatedAt,
+    }))
+
+    return {
+      accommodations,
+      total: response.total,
+      page,
+      limit,
+      totalPages: Math.ceil(response.total / limit),
+      hasMore: response.total > page * limit,
+    }
   } catch (error) {
     console.error("Error fetching accommodations:", error);
     throw error;
