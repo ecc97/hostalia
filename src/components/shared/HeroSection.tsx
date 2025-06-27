@@ -1,12 +1,10 @@
 'use client'
 import { motion } from "framer-motion"
 import SearchBar from "@/components/ui/SearchBar"
-import Navbar from "@/components/ui/Navbar"
 
 export default function HeroSection() {
   return (
     <section className="hero relative h-screen overflow-hidden">
-      <Navbar />
       
       {/* Background Image */}
       {/* <div className="absolute inset-0 z-0">

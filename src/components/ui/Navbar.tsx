@@ -50,7 +50,7 @@ export default function Navbar() {
     <motion.nav
       className={`
         fixed top-0 left-0 right-0 z-50 transition-all duration-300 
-        ${isScrolled || isAuthenticated ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        ${isScrolled || isAuthenticated || pathname !== '/' ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -65,14 +65,14 @@ export default function Navbar() {
                 <LuArrowRightFromLine size={22} />
               </button>
             )}
-            <Link href="/" className={`text-2xl font-bold hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated ? 'text-black' : 'text-white'}`}>
+            <Link href="/" className={`text-2xl font-bold hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated || pathname !== '/' ? 'text-black' : 'text-white'}`}>
               🏠 Hostalia
             </Link>
           </div>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/explore" className={`hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated ? 'text-black' : 'text-white'}`}>
+            <Link href="/explore" className={`hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated || pathname !== '/' ? 'text-black' : 'text-white'}`}>
               Explore
             </Link>
             {isAuthenticated && (
@@ -95,7 +95,7 @@ export default function Navbar() {
           {/* Login/Register Buttons */}
           {!isAuthenticated && (
             <div className="flex items-center ml-auto space-x-4">
-              <button onClick={openLoginModal} className={`text-white hover:text-blue-200 transition-colors px-4 py-2 rounded-lg hover:bg-white/10 ${isScrolled ? 'bg-blue-500 hover:bg-blue-700' : ''}`}>
+              <button onClick={openLoginModal} className={`text-white hover:text-blue-200 transition-colors px-4 py-2 rounded-lg hover:bg-white/10 ${isScrolled || pathname !== '/' ? 'bg-blue-500 hover:bg-blue-700' : ''}`}>
                 Login
               </button>
               <button onClick={openRegisterModal} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">

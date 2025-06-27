@@ -44,7 +44,7 @@ export async function getAccommodationsByPage(page: number, limit: number): Prom
       images: accommodation.images || [],
       capacity: accommodation.capacity || 1,
       rating: accommodation.rating || 0,
-      createdAt: accommodation.$createdAt, 
+      createdAt: accommodation.$createdAt,
       updatedAt: accommodation.$updatedAt,
     }))
 
@@ -56,6 +56,58 @@ export async function getAccommodationsByPage(page: number, limit: number): Prom
       totalPages: Math.ceil(response.total / limit),
       hasMore: response.total > page * limit,
     }
+  } catch (error) {
+    console.error("Error fetching accommodations:", error);
+    throw error;
+  }
+}
+
+export async function getAccommodationBySearch(query: string, page: number, limit: number): Promise<AccommodationResponse> {
+  try {
+    if (!query || !query.trim()) {
+      throw new Error('Query parameter is required');
+    }
+
+    const offset = (page - 1) * limit;
+
+    const response = await databases.listDocuments(
+      DATABASE_ID,
+      ACCOMMODATIONS_COLLECTION_ID,
+      [
+        Query.or([
+          Query.search('name', query.trim()),
+          Query.search('location', query.trim()),
+        ]),
+        Query.limit(limit),
+        Query.offset(offset),
+      ]
+    );
+
+    const accommodations: Accommodation[] = response.documents.map((accommodation) => ({
+      id: accommodation.$id,
+      name: accommodation.name,
+      description: accommodation.description,
+      price: accommodation.price,
+      location: accommodation.location,
+      images: accommodation.images || [],
+      capacity: accommodation.capacity || 1,
+      rating: accommodation.rating || 0,
+      createdAt: accommodation.$createdAt,
+      updatedAt: accommodation.$updatedAt,
+    }));
+
+    const total = response.total;
+    const totalPages = Math.ceil(total / limit);
+    const hasMore = total > page * limit;
+
+    return {
+      accommodations,
+      total,
+      page,
+      limit,
+      totalPages,
+      hasMore
+    };
   } catch (error) {
     console.error("Error fetching accommodations:", error);
     throw error;
@@ -89,19 +141,19 @@ export async function createAccommodation(accommodationData: AccommodationInput)
     let images: string[] = [];
 
     if (accommodationData.imageFiles && accommodationData.imageFiles.length > 0) {
-      const uploadFiles = accommodationData.imageFiles.map(async(imageFile) => {
+      const uploadFiles = accommodationData.imageFiles.map(async (imageFile) => {
         const file = await storage.createFile(
           process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID!,
           ID.unique(),
           imageFile
         );
-        
+
         return storage.getFileView(
           process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID!,
           file.$id
         );
-        
-      }) 
+
+      })
       images = await Promise.all(uploadFiles);
     }
 
@@ -113,7 +165,7 @@ export async function createAccommodation(accommodationData: AccommodationInput)
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(dataToSend), 
+      body: JSON.stringify(dataToSend),
     });
 
     if (!response.ok) {
