@@ -1,9 +1,9 @@
-import { getAccommodationBySearch } from '@/actions/accommodations';
 import AccommodationListSearch from '@/components/shared/AccommodationListSearch';
 import Pagination from '@/components/ui/Pagination';
 import SearchBar from '@/components/ui/SearchBar';
 import { Accommodation, AccommodationResponse } from '@/interfaces/IAccomodations';
 import React from 'react'
+import Link from 'next/link';
 
 type Props = {
     searchParams: Promise<{

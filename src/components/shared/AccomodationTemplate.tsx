@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useAccommodationsStore } from '@/store/accommodationsStore';
+import { useAuthStore } from '@/store/authStore';
 import { useModalStore } from '@/store/modalStore';
 import { useParams } from 'next/navigation';
 import Modal from './Modal';
@@ -15,6 +16,7 @@ export default function AccommodationTemplate() {
     const accommodationId = params.id as string;
 
     const { currentAccommodation, loading, error, fetchAccommodation} = useAccommodationsStore();
+    const { isAuthenticated } = useAuthStore();
     const data = currentAccommodation as Accommodation;
     
     // Estado para controlar la apertura/cierre del modal
@@ -79,13 +81,23 @@ export default function AccommodationTemplate() {
         <div className="flex flex-col justify-center h-screen p-8 md:px-0 md:py-8 mt-16 max-w-4xl mx-auto">
             {/* Header con botón de regreso */}
             <div className="mb-6">
-                <Link
-                    href="/dashboard/accommodations"
-                    className="inline-flex items-center text-indigo-600 hover:text-indigo-800 mb-4"
-                >
-                    <FaArrowLeft className="w-4 h-4 mr-2" />
-                    Volver a alojamientos
-                </Link>
+                {isAuthenticated ? (
+                    <Link
+                        href="/dashboard/accommodations"
+                        className="inline-flex items-center text-indigo-600 hover:text-indigo-800 mb-4"
+                    >
+                        <FaArrowLeft className="w-4 h-4 mr-2" />
+                        Volver a alojamientos
+                    </Link>
+                ) : (
+                    <Link
+                        href="/"
+                        className="inline-flex items-center text-indigo-600 hover:text-indigo-800 mb-4"
+                    >
+                        <FaArrowLeft className="w-4 h-4 mr-2" />
+                        Volver a inicio
+                    </Link>
+                )}
                 <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
             </div>
 
@@ -181,22 +193,26 @@ export default function AccommodationTemplate() {
 
                     {/* Información adicional */}
                     <div className="pt-4 border-t border-gray-200">
-                        <div className="text-sm text-gray-500 space-y-1">
-                            <p>Creado el: {new Date(data.createdAt || '').toLocaleDateString()}</p>
-                            {data.updatedAt && (
-                                <p>Actualizado el: {new Date(data.updatedAt || '').toLocaleDateString()}</p>
-                            )}
-                        </div>
+                        {isAuthenticated && (
+                            <div className="text-sm text-gray-500 space-y-1">
+                                <p>Creado el: {new Date(data.createdAt || '').toLocaleDateString()}</p>
+                                {data.updatedAt && (
+                                    <p>Actualizado el: {new Date(data.updatedAt || '').toLocaleDateString()}</p>
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     {/* Botones de acción */}
                     <div className="flex gap-3 pt-4">
-                        <button className="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors">
+                        <button className="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors cursor-pointer">
                             Reservar
                         </button>
-                        <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
-                            Editar
-                        </button>
+                        {isAuthenticated && (
+                            <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
+                                Editar
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

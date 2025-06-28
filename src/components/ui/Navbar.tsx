@@ -72,8 +72,8 @@ export default function Navbar() {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/explore" className={`hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated || pathname !== '/' ? 'text-black' : 'text-white'}`}>
-              Explore
+            <Link href="#accommodations-section" className={`hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated || pathname !== '/' ? 'text-black' : 'text-white'}`}>
+              Explorar
             </Link>
             {isAuthenticated && (
               <Link href='/dashboard' className={`hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated ? 'text-black' : 'text-white'}`}>
@@ -87,7 +87,7 @@ export default function Navbar() {
             <div className="flex items-center ml-auto space-x-4">
               <span className={`text-lg font-semibold`}>{user?.fullName || user?.email}</span>
               <button onClick={handleLogout} className={`text-white hover:text-blue-200 transition-colors px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-700`}>
-                Logout
+                Cerrar sesión
               </button>
             </div>
           ) : null}
@@ -96,10 +96,10 @@ export default function Navbar() {
           {!isAuthenticated && (
             <div className="flex items-center ml-auto space-x-4">
               <button onClick={openLoginModal} className={`text-white hover:text-blue-200 transition-colors px-4 py-2 rounded-lg hover:bg-white/10 ${isScrolled || pathname !== '/' ? 'bg-blue-500 hover:bg-blue-700' : ''}`}>
-                Login
+                Iniciar sesión
               </button>
               <button onClick={openRegisterModal} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
-                Register
+                Registrarse
               </button>
             </div>
           )}

@@ -3,6 +3,7 @@ import { Accommodation } from '@/interfaces/IAccomodations'
 import { getRandomAccommodations } from '@/utils/RandomAccommodations'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 
 type AccommodationsProps = {
   accommodations: Accommodation[]
@@ -14,7 +15,7 @@ export default function AccommodationsSection({ accommodations }: Accommodations
   }
   const randomAccommodations = getRandomAccommodations(accommodations)
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white" id='accommodations-section'>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -39,18 +40,20 @@ export default function AccommodationsSection({ accommodations }: Accommodations
               viewport={{ once: true }}
               className="group cursor-pointer"
             >
-              <div className="relative h-64 rounded-2xl overflow-hidden mb-6 shadow-lg">
-                <Image
-                  src={item.images && item.images.length > 0 ? item.images[0] : 'https://via.placeholder.com/400'}
-                  alt={item.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
-                {/* <div className="absolute top-6 left-6 text-4xl">{item.icon}</div> */}
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">{item.name}</h3>
-              <p className="text-gray-600">{item.description}</p>
+              <Link href={`/accommodations/${item.id}`}>
+                <div className="relative h-64 rounded-2xl overflow-hidden mb-6 shadow-lg">
+                  <Image
+                    src={item.images && item.images.length > 0 ? item.images[0] : 'https://via.placeholder.com/400'}
+                    alt={item.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+                  {/* <div className="absolute top-6 left-6 text-4xl">{item.icon}</div> */}
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{item.name}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </Link>
             </motion.div>
           ))}
         </div>
