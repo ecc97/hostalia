@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Accommodation } from '@/interfaces/IAccomodations';
 import Image from 'next/image';
 import Link from 'next/link';

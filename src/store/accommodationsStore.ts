@@ -22,8 +22,8 @@ export const useAccommodationsStore = create<AccommodationsState>((set, get) => 
       set({ loading: true });
       const accommodations = await getAccommodations();
       set({ accommodations, loading: false });
-    } catch (error) {
-      set({ error: "Error fetching accommodations", loading: false });
+    } catch (error: unknown) {
+      set({ error: `Error fetching accommodations ${error}`, loading: false });
     }
   },
   fetchAccommodation: async (id: string) => {
@@ -32,8 +32,8 @@ export const useAccommodationsStore = create<AccommodationsState>((set, get) => 
       const accommodation = await getAccommodation(id);
       // set({ accommodations: [...get().accommodations.map((a) => a.id === id ? accommodation : a), accommodation], loading: false });
       set({currentAccommodation: accommodation, loading: false});
-    } catch (error) {
-      set({ error: "Error fetching accommodation", loading: false });
+    } catch (error: unknown) {
+      set({ error: `Error fetching accommodations ${error}`, loading: false });
     }
   },
   createAccommodation: async (data) => {
@@ -41,8 +41,8 @@ export const useAccommodationsStore = create<AccommodationsState>((set, get) => 
       set({ loading: true });
       const created = await createAccommodation(data);
       set({ accommodations: [...get().accommodations, created], loading: false });
-    } catch (error) {
-      set({ error: "Error creating accommodation", loading: false });
+    } catch (error: unknown) {
+      set({ error: `Error creating accommodations ${error}`, loading: false });
     }
   },
 }));

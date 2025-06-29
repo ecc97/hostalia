@@ -45,13 +45,20 @@ export async function POST(request: Request) {
       phone: userDocument.phone,
     }, { status: 201 });
 
-  } catch (error: any) {
+  } catch (err: unknown) {
+    const error = err as Error;
     console.error("Error registering user:", error);
     // AppwriteException tiene una propiedad 'message' y 'code'
     return NextResponse.json({
-      error: error.message || "Failed to register user",
-      code: error.code || 500,
-      type: error.type || "unknown_error",
-    }, { status: error.code || 500 });
+      error: error || "Failed to register user",
+      message: error.message || "Failed to register user",
+    }, { status: 500 });
   }
 }
+
+// AppwriteException tiene una propiedad 'message' y 'code'
+    // return NextResponse.json({
+    //   error: error.message || "Failed to register user",
+    //   code: error.code || 500,
+    //   type: error.type || "unknown_error",
+    // }, { status: error.code || 500 });

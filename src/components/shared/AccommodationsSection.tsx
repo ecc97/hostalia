@@ -1,6 +1,6 @@
 'use client'
 import { Accommodation } from '@/interfaces/IAccomodations'
-import { getRandomAccommodations } from '@/utils/RandomAccommodations'
+import { RandomAccommodations } from '@/utils/RandomAccommodations'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,7 +13,7 @@ export default function AccommodationsSection({ accommodations }: Accommodations
   if (!accommodations || accommodations.length === 0) {
     return null;
   }
-  const randomAccommodations = getRandomAccommodations(accommodations)
+  const randomAccommodations = RandomAccommodations(accommodations)
   return (
     <section className="py-20 bg-white" id='accommodations-section'>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

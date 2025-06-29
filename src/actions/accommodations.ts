@@ -156,7 +156,7 @@ export async function createAccommodation(accommodationData: AccommodationInput)
       })
       images = await Promise.all(uploadFiles);
     }
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { imageFiles, ...doc } = accommodationData;
     const dataToSend = { ...doc, images };
 

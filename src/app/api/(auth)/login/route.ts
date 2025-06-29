@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { account, client, databases } from "@/lib/appwrite";
-import { ID } from "appwrite";
+import { account, databases } from "@/lib/appwrite";
 
 const DATABASE_ID = '683a05ed00135a25f39e'; // ID de tu base de datos
 const USERS_COLLECTION_ID = '683a06870000dfe9dcce'; // ID de tu colección de usuarios
@@ -24,21 +23,32 @@ export async function POST(request: Request) {
       session.userId
     );
 
+    console.log("User details:", user);
+    console.log('Session ID User:', session.userId)
+    console.log('Session ID:', session.$id)
+
     return NextResponse.json({
       message: "Login successful",
       sessionId: session.$id,
-      userId: user.$id,
+      userId: session.userId,
       email: user.email,
       name: user.name,
+      status: user.status,
     }, { status: 200 });
 
-  } catch (error: any) {
-    console.error("Error during login:", error);
-    // AppwriteException tiene una propiedad 'message' y 'code'
+  } catch (err: unknown) {
+    const error = (err instanceof Error) ? err : new Error("Unknown error");
+    console.error('Login error:', error.message);
     return NextResponse.json({
-      error: error.message || "Failed to login",
-      code: error.code || 500,
-      type: error.type || "unknown_error",
-    }, { status: error.code || 500 });
+      error: error,
+      message: error.message || "Failed to login",
+    }, { status: 500 });
   }
 }
+
+// return NextResponse.json({
+//       error: error.message || "Failed to login",
+//       code: error.code || 500,
+//       type: error.type || "unknown_error",
+//     }, { status: error.code || 500 });
+//   }

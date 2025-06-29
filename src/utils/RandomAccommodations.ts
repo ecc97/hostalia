@@ -1,7 +1,7 @@
 import { Accommodation } from "@/interfaces/IAccomodations";
 import { useMemo } from "react";
 
-export function getRandomAccommodations(data: Accommodation[]) {
+export function RandomAccommodations(data: Accommodation[]) {
     const accommodations = data;
     const randomAccommodations = useMemo(() => {
         const shuffledAccommodations = [...accommodations].sort(() => Math.random() - 0.5);

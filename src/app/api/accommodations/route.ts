@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { databases } from "@/lib/appwrite";
 import { ID } from "appwrite";
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const response = await databases.listDocuments(
       '683a05ed00135a25f39e',
@@ -17,8 +17,8 @@ export async function GET(request: Request) {
       images: accommodation.images || [],
       capacity: accommodation.capacity || 1,
       rating: accommodation.rating || 0,
-      createdAt: accommodation.$createdAt, // Incluir fecha de creación
-      updatedAt: accommodation.$updatedAt, // Incluir fecha de actualización
+      createdAt: accommodation.$createdAt,
+      updatedAt: accommodation.$updatedAt,
     }));
     return NextResponse.json(accommodations);
   } catch (error) {
@@ -47,8 +47,8 @@ export async function POST(request: Request) {
       images: response.images || [],
       capacity: response.capacity || 1,
       rating: response.rating || 0,
-      createdAt: response.$createdAt, // Incluir fecha de creación
-      updatedAt: response.$updatedAt, // Incluir fecha de actualización
+      createdAt: response.$createdAt, 
+      updatedAt: response.$updatedAt, 
     };
     return NextResponse.json(createdAccommodation);
   } catch (error) {

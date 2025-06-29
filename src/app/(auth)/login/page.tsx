@@ -43,7 +43,8 @@ export default function LoginPage() {
       setMessage("¡Inicio de sesión exitoso!");
       // Redirigir al usuario a la página de dashboard
       router.push("/dashboard");
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error instanceof Error ? error : new Error("Unknown error");
       setError(err.message || "Error al iniciar sesión.");
       console.error(err);
     } finally {

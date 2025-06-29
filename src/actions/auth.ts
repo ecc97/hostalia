@@ -78,7 +78,8 @@ export async function checkAuthStatus() {
             },
             sessionId: currentSession?.$id || null,
         }
-    } catch (error) {
+    } catch (error: unknown) {
+        console.error(error instanceof Error ? error.message : 'Unknown error');
         return {
             isAuthenticated: false,
             user: null,

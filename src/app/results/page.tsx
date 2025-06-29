@@ -3,7 +3,6 @@ import Pagination from '@/components/ui/Pagination';
 import SearchBar from '@/components/ui/SearchBar';
 import { Accommodation, AccommodationResponse } from '@/interfaces/IAccomodations';
 import React from 'react'
-import Link from 'next/link';
 
 type Props = {
     searchParams: Promise<{
@@ -42,7 +41,7 @@ export default async function ResultsPage({ searchParams }: Props) {
             <main className="container mx-auto px-4 py-8 mt-16">
                 <SearchBar />
                 <h1 className="text-2xl font-bold text-gray-800 my-6">
-                    Resultados para: "{searchQuery}"
+                    Resultados para: &quot;{searchQuery}&quot;
                 </h1>
 
                 {accommodations.length > 0 ? (
@@ -50,7 +49,7 @@ export default async function ResultsPage({ searchParams }: Props) {
                 ) : (
                     <div className="text-center py-12">
                         <h2 className="text-xl text-gray-600">
-                            No se encontraron alojamientos para "{searchQuery}"
+                            No se encontraron alojamientos para &quot;{searchQuery}&quot;
                         </h2>
                     </div>
                 )}

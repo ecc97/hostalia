@@ -6,6 +6,7 @@ export default function RegisterPage() {
     fullName: '',
     email: '',
     password: '',
+    confirmPassword: '',
     phone: '',
   });
   const [message, setMessage] = useState('');
@@ -38,9 +39,10 @@ export default function RegisterPage() {
 
       setMessage('¡Usuario registrado exitosamente!');
       // Redirigir al usuario o limpiar el formulario
-      setFormData({ fullName: '', email: '', password: '', phone: '' });
-    } catch (err: any) {
-      setError(err.message || 'Error al registrar usuario.');
+      setFormData({ fullName: '', email: '', password: '', confirmPassword: '', phone: '' });
+    } catch (err: unknown) {
+      const error = err instanceof Error ? err : new Error('Unknown error');
+      setError(error.message || 'Error al registrar usuario.');
       console.error(err);
     }
   };
@@ -60,6 +62,10 @@ export default function RegisterPage() {
         <div>
           <label htmlFor="password">Contraseña</label>
           <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
+        </div>
+        <div>
+          <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
         </div>
         <div>
           <label htmlFor="phone">Teléfono</label>
