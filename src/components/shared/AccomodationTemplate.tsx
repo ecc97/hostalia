@@ -10,15 +10,17 @@ import { useModalStore } from '@/store/modalStore';
 import { useParams } from 'next/navigation';
 import Modal from './Modal';
 import ImageCarousel from './ImageCarousel';
+import { useRouter } from 'next/navigation';
 
 export default function AccommodationTemplate() {
     const params = useParams();
+    const router = useRouter();
     const accommodationId = params.id as string;
 
-    const { currentAccommodation, loading, error, fetchAccommodation} = useAccommodationsStore();
+    const { currentAccommodation, loading, error, fetchAccommodation } = useAccommodationsStore();
     const { isAuthenticated } = useAuthStore();
     const data = currentAccommodation as Accommodation;
-    
+
     // Estado para controlar la apertura/cierre del modal
     // const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const { showImagesModal, openImagesModal, closeImagesModal } = useModalStore();
@@ -76,7 +78,7 @@ export default function AccommodationTemplate() {
             </div>
         );
     }
-    
+
     return (
         <div className="flex flex-col justify-center h-screen p-8 md:px-0 md:py-8 mt-16 max-w-4xl mx-auto">
             {/* Header con botón de regreso */}
@@ -126,9 +128,9 @@ export default function AccommodationTemplate() {
                             {data.images.length > 1 && (
                                 <div className="grid grid-cols-2 gap-2">
                                     {data.images.slice(1).map((image, index) => (
-                                        <div 
-                                            key={index + 1} 
-                                            className="relative cursor-pointer" 
+                                        <div
+                                            key={index + 1}
+                                            className="relative cursor-pointer"
                                             onClick={openImagesModal}
                                         >
                                             <Image
@@ -205,12 +207,18 @@ export default function AccommodationTemplate() {
 
                     {/* Botones de acción */}
                     <div className="flex gap-3 pt-4">
-                        <button className="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors cursor-pointer">
-                            Reservar
-                        </button>
-                        {isAuthenticated && (
-                            <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
-                                Editar
+                        {isAuthenticated ? (
+                            <>
+                                <button className="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors cursor-pointer" onClick={() => router.push(`/dashboard/bookings/create?accommodationId=${data.id}&name=${encodeURIComponent(data.name)}&price=${data.price}&location=${encodeURIComponent(data.location)}`)}>
+                                    Reservar
+                                </button>
+                                <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
+                                    Editar
+                                </button>
+                            </>
+                        ): (
+                            <button className="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors cursor-pointer">
+                                Reservar
                             </button>
                         )}
                     </div>
@@ -218,15 +226,15 @@ export default function AccommodationTemplate() {
             </div>
 
             {/* Modal para el carrusel de imágenes */}
-            <Modal 
-                isOpen={showImagesModal!} 
+            <Modal
+                isOpen={showImagesModal!}
                 onClose={closeImagesModal}
                 isLg={true}
             >
                 <div className="p-2">
                     <h3 className="text-xl font-bold mb-4">Galería de imágenes</h3>
-                    <ImageCarousel 
-                        images={data.images || []} 
+                    <ImageCarousel
+                        images={data.images || []}
                         alt={data.name}
                     />
                 </div>

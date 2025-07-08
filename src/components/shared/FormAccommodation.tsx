@@ -67,7 +67,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
             <form onSubmit={handleSubmit} className="space-y-4 flex flex-col">
                 <div className='flex flex-col md:flex-row gap-4'>
                     <div className='w-full md:w-2/4'>
-                        <div>
+                        <div className='w-full mt-1'>   
                             <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nombre</label>
                             <input
                                 type="text"
@@ -79,7 +79,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 required
                             />
                         </div>
-                        <div>
+                        <div className='w-full mt-1'>
                             <label htmlFor="description" className="block text-sm font-medium text-gray-700">Descripción</label>
                             <textarea
                                 id="description"
@@ -91,7 +91,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 required
                             ></textarea>
                         </div>
-                        <div>
+                        <div className='w-full mt-1'>
                             <label htmlFor="price" className="block text-sm font-medium text-gray-700">Precio</label>
                             <input
                                 type="number"
@@ -103,7 +103,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 required
                             />
                         </div>
-                        <div>
+                        <div className='w-full mt-1'>
                             <label htmlFor="location" className="block text-sm font-medium text-gray-700">Ubicación</label>
                             <input
                                 type="text"
@@ -115,7 +115,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 required
                             />
                         </div>
-                        <div>
+                        <div className='w-full mt-1'>
                             <label htmlFor="capacity" className="block text-sm font-medium text-gray-700">Capacidad</label>
                             <input
                                 type="number"
