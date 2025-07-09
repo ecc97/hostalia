@@ -62,3 +62,12 @@ export const createBooking = async (bookingData: IBookingRequest): Promise<IBook
         throw error;
     }
 };
+
+export const deleteBooking = async (bookingId: string): Promise<void> => {
+    try {
+        await databases.deleteDocument(DATABASE_ID, BOOKINGS_COLLECTION_ID, bookingId);
+    } catch (error) {
+        console.error("Error deleting booking:", error);
+        throw error;
+    }
+};

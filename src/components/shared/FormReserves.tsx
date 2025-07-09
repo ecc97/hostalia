@@ -77,9 +77,11 @@ export default function FormReserves({ accommodationId, acccommodationName, acco
         <>
             <h2 className='text-2xl text-center font-bold mb-4'>Reservar</h2>
             <div className='w-full flex flex-col gap-4'>
-                {/* <p>Alojamiento: nombre del alojamiento el cual dio click en reservar Debe aparecer los valores accediendo a sus propiedad .name</p> */}
-                {/* <p>Precio del alojamiento: precio del alojamiento el cual dio click en reservar Debe aparecer los valores accediendo a sus propiedad .price</p> */}
-                {/* <p>Ubicación: Ubicación del alojamiento el cual dio click en reservar Debe aparecer los valores accediendo a sus propiedad .location</p> */}
+                <article className='p-4 bg-white w-full rounded-lg shadow-lg flex flex-col gap-3 justify-center items-center mb-4 lg:w-1/4'>
+                    <h3 className='text-lg font-bold'>{acccommodationName}</h3>
+                    <p className='text-gray-600'>{accommodationLocation}</p>
+                    <p className='text-blue-400 font-medium'>${accommodationPrice}</p>
+                </article>
             </div>
             <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
                 <div className='w-full mt-1'>

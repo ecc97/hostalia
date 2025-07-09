@@ -61,7 +61,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             {!isOpen &&  (
-              <button className={`${!isAuthenticated || !pathnameList.includes(pathname) ? 'hidden' : 'rounded-full p-1 hover:bg-gray-400 duration-300 cursor-pointer' }`} onClick={openAside} title="Abrir menú">
+              <button className={`${!isAuthenticated || pathnameList.includes(pathname) ? 'hidden' : 'rounded-full p-1 hover:bg-gray-400 duration-300 cursor-pointer' }`} onClick={openAside} title="Abrir menú">
                 <LuArrowRightFromLine size={22} />
               </button>
             )}
