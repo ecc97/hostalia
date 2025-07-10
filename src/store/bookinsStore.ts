@@ -12,7 +12,7 @@ interface BookingsStore {
     updatedStatusBooking: (bookingId: string, status: string) => Promise<IBooking>
 }
 
-export const useBookingsStore = create<BookingsStore>((set, get) => ({
+export const useBookingsStore = create<BookingsStore>((set) => ({ 
     bookings: [],
     currentBooking: null,
     loading: false,

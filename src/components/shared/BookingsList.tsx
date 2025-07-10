@@ -14,10 +14,9 @@ export default function BookingsList({ bookings }: BookingsListProps) {
     const { bookings: currentBookings, loading, error, setInitialBookings, updatedStatusBooking } = useBookingsStore();
     const otherBookings = bookings.filter((booking) => booking.userId !== user?.userId);
 
-
     useEffect(() => {
         setInitialBookings(bookings);
-    }, [bookings]);
+    }, [bookings, setInitialBookings]);
 
 
     const handleUpdateStatusBooking = async (bookingId: string, newStatus: string) => {

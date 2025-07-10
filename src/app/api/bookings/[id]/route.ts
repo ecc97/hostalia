@@ -10,7 +10,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     const updatedBooking = await updatedStatusBooking(id, status);
 
     return NextResponse.json(updatedBooking);
-  } catch (error) {
-    return NextResponse.json({ error: "Error al actualizar el estado de la reserva" }, { status: 500 });
+  } catch (error: unknown) {
+    const errorData = error instanceof Error ? error.message : "Error desconocido";
+    console.error(errorData);
+    return NextResponse.json({ error: `Error al actualizar el estado de la reserva: ${errorData}` }, { status: 500 });
   }
 }

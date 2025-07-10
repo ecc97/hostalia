@@ -1,12 +1,14 @@
 import { IBookingsResponse, IBooking } from '@/interfaces/IBookings'
 import BookingsList from '@/components/shared/BookingsList';
 
-export default async function BookingsPages() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bookings`);
-    const data: IBookingsResponse = await response.json();
-    const bookings: IBooking[] = data.bookings;
 
+export default async function BookingsPages() {
     try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/bookings`, {
+            cache: 'no-store',
+        });
+        const data: IBookingsResponse = await response.json();
+        const bookings: IBooking[] = data.bookings;
         return (
             <BookingsList bookings={bookings} />
         )
