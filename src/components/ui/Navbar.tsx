@@ -72,9 +72,11 @@ export default function Navbar() {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="#accommodations-section" className={`hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated || pathname !== '/' ? 'text-black' : 'text-white'}`}>
-              Explorar
-            </Link>
+            {pathname === '/' && (
+              <Link href="#accommodations-section" className={`hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated || pathname !== '/' ? 'text-black' : 'text-white'}`}>
+                Explorar
+              </Link>
+            )}
             {isAuthenticated && (
               <Link href='/dashboard' className={`hover:text-blue-200 transition-colors ${isScrolled || isAuthenticated ? 'text-black' : 'text-white'}`}>
                 Dashboard
