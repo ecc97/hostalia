@@ -33,7 +33,7 @@ export default function DashboardAside() {
                 <nav className='grow'>
                     <ul className='items-link flex flex-col justify-center h-full'>
                         <li><Link href="/dashboard/accommodations">Alojamientos</Link></li>
-                        <li><Link href="/dashboard/reserves">Reservas</Link></li>
+                        <li><Link href="/dashboard/bookings">Reservas</Link></li>
                         <li><Link href="/dashboard/my-bookings">Mis reservas</Link></li>
                         <li><Link href="/dashboard/profile">Perfil</Link></li>
                     </ul>

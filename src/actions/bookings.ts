@@ -71,3 +71,32 @@ export const deleteBooking = async (bookingId: string): Promise<void> => {
         throw error;
     }
 };
+
+export const updatedStatusBooking = async (bookingId: string, status: string): Promise<IBooking> => {
+    try {
+        const response = await databases.updateDocument(
+            DATABASE_ID,
+            BOOKINGS_COLLECTION_ID,
+            bookingId,
+            { status },
+        );
+        const updatedBooking = {
+            id: response.$id,
+            startDate: response.startDate,
+            endDate: response.endDate,
+            guests: response.guests || 1,
+            accommodationId: response.accommodationId,
+            userId: response.userId,
+            createdAt: response.$createdAt,
+            updatedAt: response.$updatedAt,
+            status: response.status || 'pending',
+            accommodationName: response.accommodationName,
+            accommodationPrice: response.accommodationPrice,
+            accommodationLocation: response.accommodationLocation,
+        };
+        return updatedBooking;
+    } catch (error) {
+        console.error("Error updating booking status:", error);
+        throw error;
+    }
+};
