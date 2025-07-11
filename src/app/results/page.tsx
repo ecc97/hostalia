@@ -40,7 +40,7 @@ export default async function ResultsPage({ searchParams }: Props) {
         return (
             <main className="container mx-auto px-4 py-8 mt-16">
                 <SearchBar />
-                <h1 className="text-2xl font-bold text-gray-800 my-6">
+                <h1 className="text-2xl font-bold my-6">
                     Resultados para: &quot;{searchQuery}&quot;
                 </h1>
 
@@ -48,7 +48,7 @@ export default async function ResultsPage({ searchParams }: Props) {
                     <AccommodationListSearch accommodations={accommodations} />
                 ) : (
                     <div className="text-center py-12">
-                        <h2 className="text-xl text-gray-600">
+                        <h2 className="text-xl">
                             No se encontraron alojamientos para &quot;{searchQuery}&quot;
                         </h2>
                     </div>

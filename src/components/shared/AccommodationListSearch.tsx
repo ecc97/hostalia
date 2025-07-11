@@ -12,7 +12,7 @@ export default function AccommodationListSearch({ accommodations }: Props) {
             <div className="grid gap-8 grid-cols-1 w-full">
                 {accommodations.map((accommodation) => (
                     <Link href={`/accommodations/${accommodation.id}`} key={accommodation.id}>
-                        <div key={accommodation.id} className="bg-white rounded-lg shadow-md p-6 flex">
+                        <div key={accommodation.id} className="rounded-lg shadow-lg p-6 flex">
                             <article className='mr-4 flex-1/2'>
                                 <Image
                                     src={accommodation.images && accommodation.images[0] ? accommodation.images[0] : ''}

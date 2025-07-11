@@ -37,12 +37,12 @@ export default function BookingsList({ bookings }: BookingsListProps) {
                     currentBookings.map((booking) => (
                         <div key={booking.id} className='border border-gray-300 p-4 rounded shadow-md'>
                             <h2 className='text-lg font-semibold'>{booking.accommodationName}</h2>
-                            <p className='text-gray-800'>{booking.accommodationLocation}</p>
-                            <p className='text-gray-800'>${booking.accommodationPrice}</p>
-                            <p className='text-gray-600'>Fecha de Reserva: {new Date(booking.startDate).toLocaleDateString()}</p>
-                            <p className='text-gray-600'>Fecha de Salida: {new Date(booking.endDate).toLocaleDateString()}</p>
-                            <p className='text-gray-600'>Número de Personas: {booking.guests}</p>
-                            <p className='text-gray-600'>Estado: {booking.status === 'pending' ? 'Pendiente' : booking.status === 'cancelled' ? 'Cancelada' : 'Confirmada'}</p>
+                            <p className='text-sm'>{booking.accommodationLocation}</p>
+                            <p className='text-sm'>${booking.accommodationPrice}</p>
+                            <p className='text-sm'>Fecha de Reserva: {new Date(booking.startDate).toLocaleDateString()}</p>
+                            <p className='text-sm'>Fecha de Salida: {new Date(booking.endDate).toLocaleDateString()}</p>
+                            <p className='text-sm'>Número de Personas: {booking.guests}</p>
+                            <p className='text-sm'>Estado: {booking.status === 'pending' ? 'Pendiente' : booking.status === 'cancelled' ? 'Cancelada' : 'Confirmada'}</p>
                             {otherBookings.length > 0 ? (
                                 <div className='mt-4'>
                                     <button

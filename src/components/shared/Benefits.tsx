@@ -1,32 +1,34 @@
 'use client'
 import { motion } from 'framer-motion'
+import { useDarkModeStore } from '@/store/DarkModeStore'
 
 const benefits = [
   {
     icon: '🛡️',
-    title: 'Secure Booking',
-    description: 'Your payments and personal information are always protected'
+    title: 'Alojamiento Seguro',
+    description: 'Tu alojamiento estará protegido con medidas de seguridad avanzadas'
   },
   {
     icon: '🌍',
-    title: 'Global Network',
-    description: 'Access to thousands of verified properties worldwide'
+    title: 'Red Global',
+    description: 'Acceso a propiedades en todo el mundo'
   },
   {
     icon: '📞',
-    title: '24/7 Support',
-    description: 'Round-the-clock customer service in multiple languages'
+    title: 'Soporte 24/7',
+    description: 'Nuestro equipo estará disponible las 24 horas del día'
   },
   {
     icon: '⭐',
-    title: 'Quality Guarantee',
-    description: 'All properties are vetted and reviewed by our team'
+    title: 'Calidad Garantizada',
+    description: 'Todas las propiedades son examinadas y revisadas por nuestro equipo'
   }
 ]
 
 export default function BenefitsSection() {
+  const { darkMode } = useDarkModeStore();
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <section className={`py-20 bg-gradient-to-br ${darkMode ? 'from-gray-900 to-gray-800' : 'from-blue-50 to-indigo-100'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -35,9 +37,9 @@ export default function BenefitsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Why choose Hostalia?</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            We make travel planning simple, secure, and unforgettable
+          <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900' }`}>¿Por qu&eacute; elegirnos?</h2>
+          <p className={`text-xl max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            Conoce las ventajas que ofrecemos para que puedas encontrar el alojamiento perfecto.
           </p>
         </motion.div>
 

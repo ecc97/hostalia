@@ -5,7 +5,10 @@ import BookingsList from '@/components/shared/BookingsList';
 export default async function BookingsPages() {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/bookings`, {
-            cache: 'no-store',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
         const data: IBookingsResponse = await response.json();
         const bookings: IBooking[] = data.bookings;

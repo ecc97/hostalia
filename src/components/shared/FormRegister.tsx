@@ -35,7 +35,7 @@ export default function FormRegister() {
     }
   return (
     <form className='flex flex-col align-center justify-center gap-4 mx-auto p-6 bg-white rounded-lg' onSubmit={handleSubmit}>
-        <h2 className="text-2xl text-center font-bold mb-4">Crea una cuenta</h2>
+        <h2 className="text-2xl text-center font-bold mb-4 text-gray-950">Crea una cuenta</h2>
         <div className="relative mb-4">
             <label htmlFor="name" className="label-login absolute left-2 top-2 transition-all duration-200 transform origin-top-left pointer-events-none">Nombre</label>
             <input 
@@ -43,7 +43,7 @@ export default function FormRegister() {
                 id="name" 
                 value={formData.fullName}
                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                className="input-login border-none p-2 w-full rounded-[12px] text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                 required
                 onFocus={(e) => {
                     const label = e.target.previousElementSibling;
@@ -68,7 +68,7 @@ export default function FormRegister() {
                     id="email" 
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    className="input-login border-none p-2 w-full rounded-[12px] text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     onFocus={(e) => {
                         const label = e.target.previousElementSibling;
@@ -94,7 +94,7 @@ export default function FormRegister() {
                     id="phone" 
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    className="input-login border-none p-2 w-full rounded-[12px] text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     onFocus={(e) => {
                         const label = e.target.previousElementSibling;
@@ -120,7 +120,7 @@ export default function FormRegister() {
                     id="password" 
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    className="input-login border-none p-2 w-full rounded-[12px] text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     onFocus={(e) => {
                         const label = e.target.previousElementSibling;
@@ -147,7 +147,7 @@ export default function FormRegister() {
                     id="confirmPassword" 
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                    className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    className="input-login border-none p-2 w-full rounded-[12px] text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     onFocus={(e) => {
                         const label = e.target.previousElementSibling;
@@ -171,7 +171,7 @@ export default function FormRegister() {
         <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[12px]" disabled={loading}>
             {loading ? 'Registrando...' : 'Registrarse'}
         </button>
-        <p className="text-center mt-4">¿Ya tienes una cuenta? <button onClick={openLoginModal} className="text-blue-500">Inicia sesión</button></p>
+        <p className="text-center mt-4 text-gray-950">¿Ya tienes una cuenta? <button onClick={openLoginModal} className="text-blue-500">Inicia sesión</button></p>
     </form>
   )
 }

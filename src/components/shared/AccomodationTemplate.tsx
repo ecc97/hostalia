@@ -7,6 +7,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { useAccommodationsStore } from '@/store/accommodationsStore';
 import { useAuthStore } from '@/store/authStore';
 import { useModalStore } from '@/store/modalStore';
+import { useDarkModeStore } from '@/store/DarkModeStore';
 import { useParams } from 'next/navigation';
 import Modal from './Modal';
 import ImageCarousel from './ImageCarousel';
@@ -17,6 +18,7 @@ export default function AccommodationTemplate() {
     const router = useRouter();
     const accommodationId = params.id as string;
 
+    const { darkMode } = useDarkModeStore();
     const { currentAccommodation, loading, error, fetchAccommodation } = useAccommodationsStore();
     const { isAuthenticated } = useAuthStore();
     const data = currentAccommodation as Accommodation;
@@ -100,7 +102,7 @@ export default function AccommodationTemplate() {
                         Volver a inicio
                     </Link>
                 )}
-                <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
+                <h1 className={`text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{data.name}</h1>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -160,43 +162,43 @@ export default function AccommodationTemplate() {
                 {/* Información del alojamiento */}
                 <div className="space-y-6">
                     <div>
-                        <h2 className="text-2xl font-semibold text-gray-900 mb-3">Información</h2>
+                        <h2 className={`text-2xl font-semibold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Información</h2>
                         <div className="space-y-3">
                             <div>
-                                <span className="font-medium text-gray-700">Precio:</span>
-                                <span className="ml-2 text-2xl font-bold text-green-600">${data.price}</span>
+                                <span className={`font-medium ${darkMode ? 'text-white' : 'text-gray-700'}`}>Precio:</span>
+                                <span className={`ml-2 text-2xl font-bold ${darkMode ? 'text-blue-300' : 'text-green-600'}`}>${data.price}</span>
                             </div>
 
                             <div>
-                                <span className="font-medium text-gray-700">Ubicación:</span>
-                                <span className="ml-2 text-gray-600">{data.location}</span>
+                                <span className={`font-medium ${darkMode ? 'text-white' : 'text-gray-700'}`}>Ubicación:</span>
+                                <span className={`ml-2 ${darkMode ? 'text-blue-300' : 'text-gray-600'}`}>{data.location}</span>
                             </div>
 
                             {data.capacity && (
                                 <div>
-                                    <span className="font-medium text-gray-700">Capacidad:</span>
-                                    <span className="ml-2 text-gray-600">{data.capacity} personas</span>
+                                    <span className={`font-medium ${darkMode ? 'text-white' : 'text-gray-700'}`}>Capacidad:</span>
+                                    <span className={`ml-2 ${darkMode ? 'text-blue-300' : 'text-gray-600'}`}>{data.capacity} personas</span>
                                 </div>
                             )}
 
                             {data.rating !== undefined && data.rating > 0 && (
                                 <div>
-                                    <span className="font-medium text-gray-700">Calificación:</span>
-                                    <span className="ml-2 text-gray-600">{data.rating}/5</span>
+                                    <span className={"font-medium text-gray-700"}>Calificación:</span>
+                                    <span className={"ml-2 text-gray-600"}>{data.rating}/5</span>
                                 </div>
                             )}
                         </div>
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-semibold text-gray-900 mb-3">Descripción</h2>
-                        <p className="text-gray-600 leading-relaxed">{data.description}</p>
+                        <h2 className={`text-2xl font-semibold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Descripción</h2>
+                        <p className={`leading-relaxed ${darkMode ? 'text-white' : 'text-gray-600'}`}>{data.description}</p>
                     </div>
 
                     {/* Información adicional */}
                     <div className="pt-4 border-t border-gray-200">
                         {isAuthenticated && (
-                            <div className="text-sm text-gray-500 space-y-1">
+                            <div className={`text-smspace-y-1 ${darkMode ? 'text-white' : 'text-gray-500'}`}>
                                 <p>Creado el: {new Date(data.createdAt || '').toLocaleDateString()}</p>
                                 {data.updatedAt && (
                                     <p>Actualizado el: {new Date(data.updatedAt || '').toLocaleDateString()}</p>

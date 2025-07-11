@@ -3,17 +3,19 @@ import { Destination, randomDestinations } from '@/utils/ListDestinations';
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { useDarkModeStore } from '@/store/DarkModeStore';
 
 
 export default function PopularDestinations() {
   const [popularDestinations, setPopularDestinations] = useState<Destination[]>([]);
+  const { darkMode } = useDarkModeStore();
 
   useEffect(() => {
     setPopularDestinations(randomDestinations());
   }, []);
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className={`py-20 ${darkMode ? 'dark:bg-black/95 text-gray-100' : 'bg-gray-50 text-gray-900'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -21,7 +23,7 @@ export default function PopularDestinations() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-12">Destinos populares</h2>
+          <h2 className="text-4xl font-bold mb-12">Destinos populares</h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

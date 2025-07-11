@@ -25,24 +25,24 @@ export default function MyBookingList({ bookings }: MyBookingListProps) {
                     myBookings.map((booking) => (
                         <div key={booking.id} className='border border-gray-300 p-4 rounded shadow-md'>
                             <h2 className='text-lg font-semibold'>{booking.accommodationName}</h2>
-                            <p className='text-gray-800'>{booking.accommodationLocation}</p>
-                            <p className='text-gray-800'>${booking.accommodationPrice}</p>
-                            <p className='text-gray-600'>Fecha de Reserva: {new Date(booking.startDate).toLocaleDateString()}</p>
-                            <p className='text-gray-600'>Fecha de Salida: {new Date(booking.endDate).toLocaleDateString()}</p>
-                            <p className='text-gray-600'>Número de Personas: {booking.guests}</p>
-                            <p className='text-gray-600'>Estado: {booking.status === 'pending' ? 'Pendiente' : booking.status === 'cancelled' ? 'Cancelada' : 'Confirmada'}</p>
+                            <p className='text-md'>{booking.accommodationLocation}</p>
+                            <p className='text-md'>${booking.accommodationPrice}</p>
+                            <p className='text-md'>Fecha de Reserva: {new Date(booking.startDate).toLocaleDateString()}</p>
+                            <p className='text-md'>Fecha de Salida: {new Date(booking.endDate).toLocaleDateString()}</p>
+                            <p className='text-md'>Número de Personas: {booking.guests}</p>
+                            <p className='text-md'>Estado: {booking.status === 'pending' ? 'Pendiente' : booking.status === 'cancelled' ? 'Cancelada' : 'Confirmada'}</p>
                             <div className='mt-4'>
                                 <DeleteBooking bookingId={booking.id} />
                             </div>
                         </div>
                 ))) : (
                     <div className='border border-gray-300 p-4 rounded shadow-md'>
-                        <p className='text-gray-800'>No haz realizado ninguna reserva.</p>
+                        <p className='text-lg'>No haz realizado ninguna reserva.</p>
                     </div>
                 )}
             </div>
             {bookings.length === 0 && (
-                <p className='text-gray-600'>No se encontraron reservas.</p>
+                <p className='text-lg'>No se encontraron reservas.</p>
             )}
         </main>
     );

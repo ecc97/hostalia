@@ -4,18 +4,20 @@ import { RandomAccommodations } from '@/utils/RandomAccommodations'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useDarkModeStore } from '@/store/DarkModeStore'
 
 type AccommodationsProps = {
   accommodations: Accommodation[]
 }
 
 export default function AccommodationsSection({ accommodations }: AccommodationsProps) {
+  const { darkMode } = useDarkModeStore();
   if (!accommodations || accommodations.length === 0) {
     return null;
   }
   const randomAccommodations = RandomAccommodations(accommodations)
   return (
-    <section className="py-20 bg-white" id='accommodations-section'>
+    <section className={`py-20 ${darkMode ? 'dark:bg-black/95 text-gray-100' : 'bg-white'}`} id='accommodations-section'>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -24,8 +26,8 @@ export default function AccommodationsSection({ accommodations }: Accommodations
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Elija su estancia perfecta</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Elija su estancia perfecta</h2>
+          <p className={`text-xl max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             Desde villas de lujo a acogedores apartamentos, encuentre el alojamiento que mejor se adapte a su estilo.
           </p>
         </motion.div>
@@ -51,8 +53,8 @@ export default function AccommodationsSection({ accommodations }: Accommodations
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
                   {/* <div className="absolute top-6 left-6 text-4xl">{item.icon}</div> */}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{item.name}</h3>
-                <p className="text-gray-600">{item.description}</p>
+                <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{item.name}</h3>
+                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{item.location}</p>
               </Link>
             </motion.div>
           ))}

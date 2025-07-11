@@ -25,13 +25,13 @@ export default function FormLogin() {
     }
     return (
         <form className="flex flex-col align-center justify-center gap-4 mx-auto p-6 bg-white rounded-lg" onSubmit={handleSubmit}>
-            <h2 className="text-2xl text-center font-bold mb-4">Bienvenido a Hostalia</h2>
+            <h2 className="text-2xl text-center font-bold mb-4 text-gray-950">Bienvenido a Hostalia</h2>
             <div className="relative mb-4">
                 <label htmlFor="email" className="label-login absolute left-2 top-2 transition-all duration-200 transform origin-top-left pointer-events-none">Correo Electrónico</label>
                 <input 
                     type="email" 
                     id="email" 
-                    className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    className="input-login border-none p-2 w-full rounded-[12px] text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -58,7 +58,7 @@ export default function FormLogin() {
                     id="password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })} 
-                    className="input-login border-none p-2 w-full rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    className="input-login border-none p-2 w-full rounded-[12px] text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                     required
                     onFocus={(e) => {
                         const label = e.target.previousElementSibling;
@@ -80,7 +80,7 @@ export default function FormLogin() {
             <button type="submit" className="bg-blue-500 text-white p-2 rounded-[24px]" disabled={loading}>
                 {loading ? 'Cargando...' : 'Iniciar Sesión'}
             </button>
-            <p className="text-center mt-4">¿No tienes una cuenta? <button onClick={openRegisterModal} className="text-blue-500">Registrate</button></p>
+            <p className="text-center mt-4 text-gray-950">¿No tienes una cuenta? <button onClick={openRegisterModal} className="text-blue-500">Registrate</button></p>
         </form>
     )
 }

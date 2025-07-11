@@ -32,6 +32,7 @@ export default function DashboardAside() {
 
                 <nav className='grow'>
                     <ul className='items-link flex flex-col justify-center h-full'>
+                        <li className='md:hidden'><Link href="/dashboard" onClick={closeAside}>Dashboard</Link></li>
                         <li><Link href="/dashboard/accommodations" onClick={closeAside}>Alojamientos</Link></li>
                         <li><Link href="/dashboard/bookings" onClick={closeAside}>Reservas</Link></li>
                         <li><Link href="/dashboard/my-bookings" onClick={closeAside}>Mis reservas</Link></li>

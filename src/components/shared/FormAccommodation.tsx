@@ -63,7 +63,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
 
     return (
         <>
-            <h2 className="text-2xl font-semibold mb-4">Crear Nuevo Alojamiento</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-gra">Crear Nuevo Alojamiento</h2>
             <form onSubmit={handleSubmit} className="space-y-4 flex flex-col">
                 <div className='flex flex-col md:flex-row gap-4'>
                     <div className='w-full md:w-2/4'>
@@ -75,7 +75,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 name="name"
                                 value={newAccommodation.name}
                                 onChange={handleInputChange}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                className="mt-1 block w-full p-2 border text-black border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                 required
                             />
                         </div>
@@ -87,7 +87,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 value={newAccommodation.description}
                                 onChange={handleInputChange}
                                 rows={3}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                className="mt-1 block w-full p-2 border text-black border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                 required
                             ></textarea>
                         </div>
@@ -99,7 +99,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 name="price"
                                 value={newAccommodation.price}
                                 onChange={handleInputChange}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                className="mt-1 block w-full p-2 border text-black border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                 required
                             />
                         </div>
@@ -111,7 +111,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 name="location"
                                 value={newAccommodation.location}
                                 onChange={handleInputChange}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                className="mt-1 block w-full p-2 border text-black border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                 required
                             />
                         </div>
@@ -123,7 +123,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 name="capacity"
                                 value={newAccommodation.capacity}
                                 onChange={handleInputChange}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                className="mt-1 block w-full p-2 border text-black border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                 required
                             />
                         </div>
