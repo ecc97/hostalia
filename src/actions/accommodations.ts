@@ -116,7 +116,7 @@ export async function getAccommodationBySearch(query: string, page: number, limi
 
 export async function getAccommodation(id: string): Promise<Accommodation> {
   try {
-    const response = await fetch(`/api/accommodations/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/accommodations/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

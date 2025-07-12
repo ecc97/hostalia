@@ -1,5 +1,5 @@
 'use client'
-import React, { PropsWithChildren } from "react"
+import React, { PropsWithChildren, useEffect } from "react"
 
 interface ModalProps extends PropsWithChildren {
     isOpen: boolean
@@ -8,6 +8,22 @@ interface ModalProps extends PropsWithChildren {
 }
 
 export default function Modal({ isOpen, onClose, isLg = false, children }: ModalProps) {
+    useEffect(() => {
+        const handleKeydown = (e: KeyboardEvent) => {
+            if (e.key === "Escape" && isOpen) {
+                onClose()
+            }
+        }
+
+        if (isOpen) {
+            window.addEventListener("keydown", handleKeydown)
+        } 
+
+        return () => {
+            window.removeEventListener("keydown", handleKeydown)
+        }
+    }, [isOpen, onClose])
+    
     if (!isOpen) return null
 
     return (
