@@ -2,6 +2,7 @@
 import { Accommodation, AccommodationInput } from '@/interfaces/IAccomodations';
 import React, { useState } from 'react'
 import ImageUploadBox from '../ui/ImageUpload';
+import { useRouter } from 'next/navigation';
 
 type FormAccommodationProps = {
     createAccommodation: (data: Omit<AccommodationInput, "id">) => Promise<void>;
@@ -21,6 +22,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
         { file: null, preview: null },
         { file: null, preview: null }
     ]);
+    const router = useRouter();
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,7 +31,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
         setNewAccommodation((prev) => ({
             ...prev,
             [name]: name === "price" ? (isNaN(Number(value)) ? 0 : Number(value)) : value,
-            [name]: name === "capacity" ? parseInt(value) : value
+            [name]: name === "capacity" ? (isNaN(Number(value)) ? 0 : Number(value)) : value
         }));
     };
 
@@ -58,12 +60,13 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
         setNewAccommodation({ name: "", description: "", price: 0, location: "", capacity: 1 });
         setImages([{ file: null, preview: null }, { file: null, preview: null }, { file: null, preview: null }]);
         closeBookingModal();
+        router.refresh();
         alert("Alojamiento creado exitosamente");
     };
 
     return (
         <>
-            <h2 className="text-2xl font-semibold mb-4 text-gra">Crear Nuevo Alojamiento</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-950">Crear Nuevo Alojamiento</h2>
             <form onSubmit={handleSubmit} className="space-y-4 flex flex-col">
                 <div className='flex flex-col md:flex-row gap-4'>
                     <div className='w-full md:w-2/4'>
@@ -89,6 +92,8 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 rows={3}
                                 className="mt-1 block w-full p-2 border text-black border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                 required
+                                minLength={100}
+                                maxLength={255}
                             ></textarea>
                         </div>
                         <div className='w-full mt-1'>

@@ -43,7 +43,7 @@ export default function BookingsList({ bookings }: BookingsListProps) {
                             <p className='text-sm'>Fecha de Salida: {new Date(booking.endDate).toLocaleDateString()}</p>
                             <p className='text-sm'>Número de Personas: {booking.guests}</p>
                             <p className='text-sm'>Estado: {booking.status === 'pending' ? 'Pendiente' : booking.status === 'cancelled' ? 'Cancelada' : 'Confirmada'}</p>
-                            {otherBookings.length > 0 ? (
+                            {otherBookings.length > 0 && booking.userId !== user?.userId ? (
                                 <div className='mt-4'>
                                     <button
                                         className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 ${booking.status === 'confirmed' || loading ? 'opacity-50 cursor-not-allowed' : ''}`}

@@ -219,7 +219,11 @@ export default function AccommodationTemplate() {
                                 </button>
                             </>
                         ): (
-                            <button className="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors cursor-pointer">
+                            <button className="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors cursor-pointer" onClick={() => {
+                                if (!isAuthenticated) {
+                                    alert('Debes iniciar sesión para reservar');
+                                }
+                            }}>
                                 Reservar
                             </button>
                         )}

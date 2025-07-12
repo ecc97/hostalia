@@ -2,6 +2,7 @@
 import React from 'react'
 import { useAuthStore } from '@/store/authStore';
 import { useDarkModeStore } from '@/store/DarkModeStore';
+import { useRouter } from 'next/navigation';
 
 
 interface IFormReservesProps {
@@ -25,6 +26,8 @@ export default function FormReserves({ accommodationId, acccommodationName, acco
         startDate: '',
         endDate: '',
     });
+
+    const router = useRouter();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -67,6 +70,7 @@ export default function FormReserves({ accommodationId, acccommodationName, acco
                 startDate: '',
                 endDate: '',
             });
+            router.push('/dashboard');
             
             alert("Reserva creada con éxito");
         } catch (error) {
