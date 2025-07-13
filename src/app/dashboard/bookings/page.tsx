@@ -1,6 +1,8 @@
 import { IBookingsResponse, IBooking } from '@/interfaces/IBookings'
 import BookingsList from '@/components/shared/BookingsList';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export default async function BookingsPages() {
     try {

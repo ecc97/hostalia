@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 export default function FormRegister() {
     const { register, error, loading } = useAuthStore();
-    const { openLoginModal } = useModalStore();
+    const { openLoginModal, closeRegisterModal} = useModalStore();
     const [formData, setFormData] = React.useState<IRegisterRequest>({
         fullName: '',
         email: '',
@@ -28,6 +28,7 @@ export default function FormRegister() {
         try {
             await register(formData);
             console.log("Registro exitoso");
+            closeRegisterModal();
             router.push('/dashboard'); 
         } catch (err) {
             console.error("Error al registrarse:", err);

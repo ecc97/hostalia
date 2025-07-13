@@ -92,7 +92,7 @@ export default function FormAccommodation({ createAccommodation, closeBookingMod
                                 rows={3}
                                 className="mt-1 block w-full p-2 border text-black border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                 required
-                                minLength={100}
+                                minLength={50}
                                 maxLength={255}
                             ></textarea>
                         </div>
